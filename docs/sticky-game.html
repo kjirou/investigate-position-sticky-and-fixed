@@ -148,7 +148,11 @@ const areBoxesOverlapping = (boxA, boxB) => {
                 })
               ) {
                 gameOvered = true
-                alert('＊いしのなかにいる＊')
+                if (Math.random() < 0.2) {
+                  alert('＊いしのなかにいる＊')
+                } else {
+                  alert('どーん！')
+                }
               }
             })
           }, 0)
