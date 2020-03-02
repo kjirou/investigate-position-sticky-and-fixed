@@ -32,16 +32,37 @@
         border: 1px solid #000;
         background-color: blue;
       }
+      .stickied-container {
+        border: 1px solid #000;
+        height: 400px;
+        width: 600px;
+        background-color: aqua;
+      }
+      .stickied-in-container {
+        position: sticky;
+        top: 10px;
+        left: 100px;
+        width: 300px;
+        height: 40px;
+        font-size: 0.8em;
+        border: 1px solid #000;
+        background-color: lime;
+      }
     </style>
   </head>
   <body>
     <div class="stickied-top-and-left">Stickied top and left</div>
     <div class="stickied-top">Stickied top</div>
     <div class="stickied-left">Stickied left</div>
+    <div class="stickied-container">
+      Container
+      <div class="stickied-in-container">Stickied in a container</div>
+    </div>
     <ul>
       <li>設定した要素でも、幅を取る。</li>
       <li>垂直方向または水平方向の位置を省略した場合は、それぞれの方向が固定されない。<br>
         省略した場合の初期位置は position 何かで計算した値になってるのだろうけど、詳細は不明。</li>
+      <li>親要素の幅の中に収まる位置までしか、粘着して移動しない。親の枠で引っ張られる。</li>
     </ul>
   </body>
 </html>
