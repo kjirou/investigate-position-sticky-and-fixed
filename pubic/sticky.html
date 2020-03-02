@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./stickybits.js"></script>
+    <style>
+      body {
+        width: 2400px;
+        height: 1200px;
+      }
+      .stickied-top-and-left {
+        position: sticky;
+        top: 20px;
+        left: 40px;
+        width: 400px;
+        height: 40px;
+        border: 1px solid #000;
+        background-color: yellow;
+      }
+      .stickied-top {
+        position: sticky;
+        top: 80px;
+        width: 400px;
+        height: 40px;
+        border: 1px solid #000;
+        background-color: green;
+      }
+      .stickied-left {
+        position: sticky;
+        left: 480px;
+        width: 40px;
+        height: 200px;
+        border: 1px solid #000;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stickied-top-and-left">Stickied top and left</div>
+    <div class="stickied-top">Stickied top</div>
+    <div class="stickied-left">Stickied left</div>
+    <ul>
+      <li>垂直方向または水平方向の位置を省略した場合は、それぞれの方向が固定されない。<br>
+        省略した場合の初期位置は position 何かで計算した値になってるのだろうけど、詳細は不明。</li>
+    </ul>
+  </body>
+</html>
