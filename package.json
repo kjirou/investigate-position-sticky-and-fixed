@@ -1,0 +1,19 @@
+{
+  "name": "investigate-position-sticky-and-fixed",
+  "version": "0.0.0",
+  "description": "Investigate behaviors of `position: sticky;` and `position: fixed;`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjirou/investigate-position-sticky-and-fixed.git"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN https://github.com/kjirou/investigate-position-sticky-and-fixed/blob/master/LICENSE",
+  "bugs": {
+    "url": "https://github.com/kjirou/investigate-position-sticky-and-fixed/issues"
+  },
+  "homepage": "https://github.com/kjirou/investigate-position-sticky-and-fixed#readme"
+}
