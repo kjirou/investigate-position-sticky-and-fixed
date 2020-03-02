@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 4800px;
+        height: 19600px;
+      }
+      .you {
+        position: sticky;
+        top: 40px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid black;
+        background-color: lime;
+      }
+      .wall-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2000px;
+        height: 100%;
+        border: 1px solid black;
+        background-color: yellow;
+      }
+      .wall-right {
+        position: absolute;
+        top: 0;
+        left: 2200px;
+        width: 2000px;
+        height: 100%;
+        border: 1px solid black;
+        background-color: yellow;
+      }
+      .meteor {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border: 1px solid black;
+        background-color: red;
+      }
+    </style>
+    <script>
+
+const normalizeToTopLeftBottomRight = (params) => {
+  const points = {
+    top: null,
+    left: null,
+    bottom: null,
+    right: null,
+  };
+
+  Object.keys(points).forEach(k => {
+    if (k in params) points[k] = params[k];
+  });
+
+  if ('x' in params && points.left === null) {
+    points.left = params.x;
+  }
+  if ('y' in params && points.top === null) {
+    points.top = params.y;
+  }
+
+  if (points.top === null || points.left === null) {
+    throw new Error('`top` or `left` can not be calculated');
+  }
+
+  if ('width' in params && points.right === null) {
+    points.right = points.left + params.width;
+  }
+  if ('height' in params && points.bottom === null) {
+    points.bottom = points.top + params.height;
+  }
+
+  if (points.bottom === null || points.right === null) {
+    throw new Error('`bottom` or `right` can not be calculated');
+  }
+
+  if (points.bottom < points.top) {
+    throw new Error('`bottom` is less than `top`');
+  } else if (points.right < points.left) {
+    throw new Error('`right` is less than `left`');
+  }
+
+  return points;
+};
+
+const areBoxesOverlapping = (boxA, boxB) => {
+  const a = normalizeToTopLeftBottomRight(boxA);
+  const b = normalizeToTopLeftBottomRight(boxB);
+
+  return (
+    (
+      a.top < b.top && a.bottom > b.top ||
+      a.top > b.top && b.bottom > a.top ||
+      a.top === b.top && a.top < a.bottom && b.top < b.bottom  // It means that both `a` and `b` have thickness
+    )
+    &&
+    (
+      a.left < b.left && a.right > b.left ||
+      a.left > b.left && b.right > a.left ||
+      a.left === b.left && a.left < a.right && b.left < b.right
+    )
+  );
+};
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const you = document.querySelector('.you')
+        const centerLeft = (document.body.clientWidth - 40) / 2
+
+        you.style.left = `${centerLeft}px`
+
+        const obstacles = []
+        for (let i = 0; i < 50; i++) {
+          const meteor = document.createElement('div')
+          meteor.style.top = `${400 + Math.random() * 10000}px`
+          meteor.style.left = `${2000 + Math.random() * 160}px`
+          meteor.classList.add('meteor')
+          document.body.appendChild(meteor)
+          obstacles.push(meteor)
+        }
+        obstacles.push(document.querySelector('.wall-left'))
+        obstacles.push(document.querySelector('.wall-right'))
+
+        setTimeout(() => {
+          window.document.body.scrollTop = 0
+          window.document.body.scrollLeft = 2000 - centerLeft + 80
+
+          // sticky してる要素は常に一定になる。
+          const youRect = you.getBoundingClientRect()
+          let gameOvered = false
+
+          setTimeout(() => {
+            window.addEventListener('scroll', () => {
+              const obstacleRects = obstacles.map(e => e.getBoundingClientRect())
+
+              if (
+                gameOvered === false &&
+                obstacleRects.some(obstacleRect => {
+                  return areBoxesOverlapping(youRect, obstacleRect)
+                })
+              ) {
+                gameOvered = true
+                alert('＊いしのなかにいる＊')
+              }
+            })
+          }, 0)
+        }, 0)
+      })
+    </script>
+  </head>
+  <body>
+    <div class="you">You</div>
+    <div class="wall-left">Wall</div>
+    <div class="wall-right">Wall</div>
+  </body>
+</html>
