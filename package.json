@@ -19,5 +19,6 @@
   "homepage": "https://github.com/kjirou/investigate-position-sticky-and-fixed#readme",
   "dependencies": {
     "http-server": "^0.12.1"
-  }
+  },
+  "private": true
 }
